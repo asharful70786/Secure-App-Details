@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1 class="about">This is Index page</h1>
+
+  <div style="width: 30%; border: 2px solid black;">
+    <iframe
+      src="http://127.0.0.1:5500/04_Same-Origin%20Policy/live_demo/about.html"
+      frameborder="0"
+    ></iframe>
+  </div>
+
+  <script>
+    const iframe = document.querySelector('iframe');
+
+    iframe.addEventListener('load', () => {
+      const heading = iframe.contentDocument.querySelector('.about');
+      heading.style.color = 'red';
+      console.log(heading);
+    });
+  </script>
+</body>
+
+</html>
