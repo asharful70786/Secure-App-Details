@@ -1,0 +1,13 @@
+1. Generate a Unique Nonce (Per Request)
+    Example in Node.js:
+    const nonce = crypto.randomBytes(16).toString('base64');
+
+2. Add Nonce to CSP Header
+    Content-Security-Policy: script-src 'self' 'nonce-<your-nonce>';
+
+3. Use the Same Nonce in Your Script Tag
+    <script nonce="your-nonce">
+    console.log("Inline script with nonce!");
+    </script>
+
+4. The browser only runs scripts that match the nonce from the CSP.
