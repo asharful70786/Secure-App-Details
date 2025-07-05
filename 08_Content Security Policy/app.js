@@ -17,28 +17,33 @@ const postSchema = new mongoose.Schema({
 
 const Post = mongoose.model("Post", postSchema);
 
-// app.use((req, res, next) => {
-//      res.setHeader(
-//       "Content-Security-Policy",
-//       "default-src 'self';")
-  
-//   next();
-// })\
-// Middleware
+
+
 
 // app.use((req, res, next) => {
-//   if (req.headers.accept?.includes("text/html")) {
-//     res.setHeader(
-//       "Content-Security-Policy",
-//       "default-src 'self';\
-//        script-src 'self' https://*.tailwindcss.com;\
-//        img-src 'self' https://images.unsplash.com;\
-//        style-src 'self' 'unsafe-inline';\
-//        connect-src 'self'"
-//     );
-//   }
+//   //there are 3 properties in the Content-Security-Policy header : header , directive , value
+//   res.header(  //self only show the own files from the server
+//     "content-security-policy", "default-src 'self';"
+//   )
 //   next();
-// });
+// })
+
+
+
+app.use((req, res, next) => {
+  if (req.headers.accept?.includes("text/html")) {
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'self';\
+       script-src 'self' 'report-sample' https://*.tailwindcss.com;\
+       img-src 'self' https://images.unsplash.com;\
+       style-src 'self' 'unsafe-inline';\
+       connect-src 'self';\
+       report-uri /csp-violation" // report-uri is a to report or show the violation
+    );
+  }
+  next();
+});
 
 app.use(express.static("./public"));
 
@@ -49,11 +54,23 @@ app.get("/posts", async (req, res) => {
   res.json(posts);
 });
 
+
+
+
 app.post("/posts", async (req, res) => {
   const post = new Post({ content: req.body.content });
   await post.save();
   res.status(201).json(post);
 });
+
+
+
+//here im handling the CSP Violation
+app.post("/csp-violation", express.json({ type: "application/csp-report" }), (req, res) => {
+  console.log(req.body);
+  res.status(200).send();
+})
+
 
 // Start server
 app.listen(4000, () => console.log("Server running on http://localhost:4000"));
