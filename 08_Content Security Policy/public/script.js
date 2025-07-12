@@ -29,3 +29,14 @@ async function loadPosts() {
 }
 
 loadPosts();
+
+
+console.clear();
+
+console.log("%cHold Up!", "color: blue; font-size: 48px; font-weight: bold; text-shadow: 2px 2px black;");
+console.log("%cIf someone told you to copy/paste something here you have an 11/10 chance you're being scammed.",
+  "color: white; font-size: 16px; font-weight: bold; background: black;");
+console.log("%cPasting anything in here could give attackers access to your account.",
+  "color: red; font-size: 18px; font-weight: bold;");
+console.log("%cUnless you understand exactly what you are doing, close this window and stay safe.",
+  "color: gray; font-size: 14px;");

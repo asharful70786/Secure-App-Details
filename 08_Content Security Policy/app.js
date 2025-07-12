@@ -35,11 +35,12 @@ app.use((req, res, next) => {
     res.setHeader(
       "Content-Security-Policy",
       "default-src 'self';\
-       script-src 'self' 'report-sample' https://*.tailwindcss.com;\
-       img-src 'self' https://images.unsplash.com;\
-       style-src 'self' 'unsafe-inline';\
-       connect-src 'self';\
-       report-uri /csp-violation" // report-uri is a to report or show the violation
+   script-src 'self' 'report-sample';\
+   script-src-elem 'self' 'https://cdn.tailwindcss.com'\
+   style-src 'self' 'unsafe-inline';\
+   img-src 'self' https://images.unsplash.com;\
+   connect-src 'self';\
+   report-uri /csp-violation"
     );
   }
   next();
